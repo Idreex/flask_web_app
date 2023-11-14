@@ -14,17 +14,20 @@ def logout():
 def sign_up():
     if request.method == 'POST':
         email = request.form.get('email')
-        firstName = request.form.get('firstName')
+        firstName = request.form.get('FirstName')
         password1 = request.form.get('Password1')
         password2 = request.form.get('Password2')
+    
+   
 
-        if len(email) < 4:
-            flash("Email must greater than 3 characters or more",category='error')
-        if len(password1) < 8:
-            flash("Email must up to 8 characters or more",category='error')
-        if password1 != password2:
+        if len(email) < 2:
+            flash("Email must greater than 2 characters or more",category='error')
+        elif len(password1) < 3:
+            flash("Email must up to 4 characters or more",category='error')
+        elif password1 != password2:
             flash("password does not match ",category='error')
         else:
            flash("Account created successfully",category='success') 
+    
     return render_template('sign-up.html')
 
