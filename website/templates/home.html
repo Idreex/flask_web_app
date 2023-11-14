@@ -1,4 +1,12 @@
 {% extends 'base.html' %}
 {% block title %} Home {% endblock%}
-<h3>{{message}}</h3>
+{% block content %}
+<h3>Welcome Home</h3><br><br>
+<div class="container">
+    <div class="container-fluid" >
+        <img src="{{url_for('static', filename = 'img/web_img2.jpg')}}" alt="mac" />
+    </div>
+</div>
+{% endblock %}
+
 
