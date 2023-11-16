@@ -1,22 +1,24 @@
 from . import db
-from sqlalchemy import Column, String, Integer, Date, ForeignKey,
 from flask_login import UserMixin
 from sqlalchemy.sql import func
+from sqlalchemy import Integer, String,DateTime,ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column
+
 
 
 class Note(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.String(10000))
-    date = db.Column(db.DateTime(timezone=True),default=func.now())
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    id: Mapped[str] = mapped_column(Integer, primary_key=True)
+    data: Mapped[str] = mapped_column(String, nullable=False)
+    date:Mapped[DateTime] = mapped_column(DateTime(timezone=True),default=func.now())
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey('user.id'))
 
 
 class User(db.Model, UserMixin):
-    id =  db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(150), unique=True)
-    firstname = db.Column(db.String(150))
-    password = db.Column(db.String(150))
-    notes = db.Relationship('Note', backref='owned_user', lazy=True)
+    id: Mapped[int] = mapped_column(db.Integer, primary_key=True)
+    email: Mapped[str] = mapped_column(String, unique=True, nullable=False)
+    firstname: Mapped[str] = mapped_column(String, unique=True, nullable=False)
+    password: Mapped[str] = mapped_column(String, unique=True, nullable=False)
+    notes = db.relationship('Note', backref='owned_user', lazy=True)
 
     
 
